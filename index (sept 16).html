@@ -89,7 +89,6 @@
    button:hover{
     background: #a57457;
    }
-   /* Uniform button sizes for About → Movie sections */
    .action-btn {
     width: 200px;
     text-align: center;
@@ -113,7 +112,6 @@
        It has been discovered in ancient ruins across Europe, dating back to the Roman Empire. Its meaning remains debated,
        but it is often seen as a mystical or religious symbol.
 </p>
-<!-- Example 1 -->
 <button class="action-btn" onclick="alert('Welcome to the Sator Square Website!')">Click Me</button>
 </section>
 
@@ -122,7 +120,6 @@
 <p>
        A word, verse, or sentence (such as "Able was I ere I saw Elba") or a number (such as 1881) that reads the same backward or forward.
 </p>
-<!-- Example 2 -->
 <button class="action-btn" onclick="document.getElementById('palText').innerHTML='Palindrome means it reads the same backward and forward!'">
    Explain Palindrome
 </button>
@@ -147,7 +144,6 @@
        frameborder="0"
        allowfullscreen>
 </iframe>
-<!-- Example 4 -->
 <button class="action-btn" onclick="alert('Did you know? TENET uses the Sator Square concept!')">Fun Fact</button>
 </section>
 
@@ -157,7 +153,6 @@
        The concept of the Sator Square is used both literally and metaphorically in the film
 <a href="https://www.imdb.com/title/tt6723592/" target="_blank">Tenet</a>.
 </p>
-<!-- Example 5 -->
 <button class="action-btn" onclick="toggleBackground()">Change Background</button>
 </section>
 
@@ -173,7 +168,7 @@
 </main>
 
 <script>
-// Example 3: Change Image Function
+// Change Image Function
 let images = [
   "https://mysteriouswritings.com/wp-content/uploads/2013/01/605px-Sator_Square_at_Opp%C3%A8de1.jpg",
   "https://hips.hearstapps.com/hmg-prod/images/sator-square-stock-1599042358.jpg?crop=0.602xw:0.851xh;0.189xw,0.0538xh&resize=980:*"
@@ -185,7 +180,7 @@ function changeImage() {
   document.getElementById('satorImg').src = images[currentIndex];
 }
 
-// Example 5: Toggle background color
+// Toggle background color
 let originalBg = "#f9f6f1";
 let altBg = "#ffe6cc";
 let bgToggle = false;
@@ -199,7 +194,7 @@ function toggleBackground() {
   bgToggle = !bgToggle;
 }
 
-// Example 6: Form submission thank you
+// Form submission thank you
 function thankUser() {
   let name = document.getElementById('username').value;
   alert("Thank you, " + name + "! Your feedback has been submitted.");
