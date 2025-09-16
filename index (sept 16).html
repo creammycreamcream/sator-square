@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sator Square</title>
+<style>
+   body {
+     font-family: "Times New Roman", serif;
+     background: #f9f6f1;
+     color: #2c2c2c;
+     margin: 0;
+     padding: 0;
+     scroll-behavior: smooth; 
+   }
+   nav {
+     position: fixed;
+     top: 0;
+     left: 0;
+     width: 100%;
+     background: #c7a085;
+     padding: 10px;
+     text-align: center;
+     perspective: 1000px;
+   }
+   nav a {
+     margin: 0 15px;
+     text-decoration: none;
+     color: #cfac77;
+     font-weight: bold;
+     display: inline-block;
+     padding: 8px 12px;
+     background: #8b5e3c;
+     border-radius: 4px;
+     transition: transform 2s;
+     transform-style: preserve-3d;
+   }
+   nav a:hover {
+    transform: rotateX(360deg);
+   }
+   section {
+     height: 100vh; 
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     padding: 20px;
+   }
+
+   img, iframe {
+     max-width: 100%;
+     border-radius: 8px;
+     margin-top: 20px;
+   }
+   img:hover {
+    transform: rotateY(360deg);
+    transition: transform 12s;
+   }
+   #palindrome {
+    transition: transform 8s;
+   }
+   #palindrome:hover {
+    transform: rotateX(360deg);
+   }
+   form {
+    padding: 50px;
+    border: 10px solid #d8c8b0;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 100%;
+   }
+   input, textarea, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    font-family: "Times New Roman", serif;
+    font-size: 16px;
+   }
+   button {
+    background: #8b5e3c;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+   }
+   button:hover{
+    background: #a57457;
+   }
+   /* Uniform button sizes for About → Movie sections */
+   .action-btn {
+    width: 200px;
+    text-align: center;
+   }
+</style>
+</head>
+<body>
+<nav>
+<a href="#about">About</a>
+<a href="#palindrome">Palindrome</a>
+<a href="#square">Square</a>
+<a href="#video">Video</a>
+<a href="#movie">Movie</a>
+<a href="#form">Form</a>
+</nav>
+<main>
+<section id="about">
+<h1>What is the Sator Square?</h1>
+<p>
+       The Sator Square is a famous Latin palindrome, consisting of five words that can be read in multiple directions.
+       It has been discovered in ancient ruins across Europe, dating back to the Roman Empire. Its meaning remains debated,
+       but it is often seen as a mystical or religious symbol.
+</p>
+<!-- Example 1 -->
+<button class="action-btn" onclick="alert('Welcome to the Sator Square Website!')">Click Me</button>
+</section>
+
+<section id="palindrome">
+<h1>What is a Palindrome?</h1>
+<p>
+       A word, verse, or sentence (such as "Able was I ere I saw Elba") or a number (such as 1881) that reads the same backward or forward.
+</p>
+<!-- Example 2 -->
+<button class="action-btn" onclick="document.getElementById('palText').innerHTML='Palindrome means it reads the same backward and forward!'">
+   Explain Palindrome
+</button>
+<p id="palText" style="font-weight:bold; color:#8b5e3c;"></p>
+</section>
+
+<section id="square">
+<h1>Sator Square</h1>
+<img id="satorImg" 
+     src="https://mysteriouswritings.com/wp-content/uploads/2013/01/605px-Sator_Square_at_Opp%C3%A8de1.jpg" 
+     width="400" alt="Sator Square">
+<!-- Example 3 -->
+<button class="action-btn" onclick="changeImage()">Change Image</button>
+</section>
+
+<section id="video">
+<h1>Video</h1>
+<iframe
+       width="560"
+       height="315"
+       src="https://www.youtube.com/embed/L3pk_TBkihU"
+       frameborder="0"
+       allowfullscreen>
+</iframe>
+<!-- Example 4 -->
+<button class="action-btn" onclick="alert('Did you know? TENET uses the Sator Square concept!')">Fun Fact</button>
+</section>
+
+<section id="movie">
+<h1>A Movie by <a href="https://www.imdb.com/name/nm0634240/" target="_blank">Christopher Nolan</a></h1>
+<p>
+       The concept of the Sator Square is used both literally and metaphorically in the film
+<a href="https://www.imdb.com/title/tt6723592/" target="_blank">Tenet</a>.
+</p>
+<!-- Example 5 -->
+<button class="action-btn" onclick="toggleBackground()">Change Background</button>
+</section>
+
+<section id="form">
+    <h1>Feedback Form</h1>
+    <form onsubmit="thankUser(); return false;">
+        <input type="text" placeholder="Your Name" id="username" required>
+        <input type="email" placeholder="Your Email" required>
+        <textarea placeholder="Your Feedback"></textarea>
+        <button type="submit">Submit</button>
+    </form>
+</section>
+</main>
+
+<script>
+// Example 3: Change Image Function
+let images = [
+  "https://mysteriouswritings.com/wp-content/uploads/2013/01/605px-Sator_Square_at_Opp%C3%A8de1.jpg",
+  "https://hips.hearstapps.com/hmg-prod/images/sator-square-stock-1599042358.jpg?crop=0.602xw:0.851xh;0.189xw,0.0538xh&resize=980:*"
+];
+let currentIndex = 0;
+
+function changeImage() {
+  currentIndex = (currentIndex + 1) % images.length;
+  document.getElementById('satorImg').src = images[currentIndex];
+}
+
+// Example 5: Toggle background color
+let originalBg = "#f9f6f1";
+let altBg = "#ffe6cc";
+let bgToggle = false;
+
+function toggleBackground() {
+  if (bgToggle) {
+    document.body.style.backgroundColor = originalBg;
+  } else {
+    document.body.style.backgroundColor = altBg;
+  }
+  bgToggle = !bgToggle;
+}
+
+// Example 6: Form submission thank you
+function thankUser() {
+  let name = document.getElementById('username').value;
+  alert("Thank you, " + name + "! Your feedback has been submitted.");
+}
+</script>
+
+</body>
+</html>
