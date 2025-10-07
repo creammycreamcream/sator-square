@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Sator Square</title>
+<style>
+ body {
+   font-family: "Times New Roman", serif;
+   background: #f9f6f1;
+   color: #2c2c2c;
+   margin: 0;
+   scroll-behavior: smooth;
+ }
+ nav {
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   background: #c7a085;
+   padding: 10px;
+   text-align: center;
+   perspective: 1000px;
+   z-index: 1000;
+ }
+ nav a {
+   margin: 0 10px;
+   text-decoration: none;
+   color: #cfac77;
+   font-weight: bold;
+   display: inline-block;
+   padding: 8px 12px;
+   background: #8b5e3c;
+   border-radius: 4px;
+   transition: transform 1s;
+ }
+ nav a:hover {
+   transform: rotateX(360deg);
+ }
+ section {
+   min-height: 100vh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   padding: 50px 20px;
+   text-align: center;
+ }
+ img, iframe {
+   max-width: 100%;
+   border-radius: 8px;
+   margin-top: 20px;
+ }
+ button {
+   margin: 10px;
+   padding: 10px 20px;
+   background: #8b5e3c;
+   color: white;
+   border: none;
+   border-radius: 6px;
+   cursor: pointer;
+   font-weight: bold;
+   transition: background 0.3s ease;
+ }
+ button:hover {
+   background: #a57457;
+ }
+ input {
+   padding: 8px;
+   border-radius: 4px;
+   border: 1px solid #aaa;
+ }
+ #loopDisplay {
+   font-weight: bold;
+   font-size: 18px;
+   margin-top: 15px;
+ }
+ .feedback-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  margin: 0 auto;
+  background: #f3e7d8;
+  padding: 24px 20px 20px 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(140, 90, 60, 0.08);
+}
+.feedback-form label {
+  align-self: flex-start;
+  margin-bottom: 4px;
+  font-weight: bold;
+  color: #8b5e3c;
+  margin-top: 12px;
+}
+.feedback-form input,
+.feedback-form textarea {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #bfa07a;
+  font-size: 16px;
+  font-family: inherit;
+  box-sizing: border-box;
+  background: #fff9f3;
+}
+.feedback-form textarea {
+  min-height: 80px;
+  resize: vertical;
+}
+.feedback-form button {
+  width: 100%;
+  margin-top: 10px;
+}
+</style>
+</head>
+<body>
+<nav>
+<a href="#about">About</a>
+<a href="#palindrome">Palindrome</a>
+<a href="#square">Square</a>
+<a href="#quiz">Quiz</a>
+<a href="#facts">Facts</a>
+<a href="#form">Form</a>
+</nav>
+<main>
+
+<section id="about">
+<h1>What is the Sator Square?</h1>
+<p>
+   The Sator Square is a famous Latin palindrome found in ancient Roman ruins.
+   It reads the same in multiple directions and contains five mysterious words:
+<b>SATOR, AREPO, TENET, OPERA, ROTAS.</b>
+</p>
+<button onclick="greetUser()">Click to Personalize</button>
+<p id="greetText"></p>
+</section>
+
+<section id="palindrome">
+<h1>Try the Palindrome Checker!</h1>
+<input type="text" id="palInput" placeholder="Type a word">
+<button onclick="checkPalindrome()">Check</button>
+<p id="palResult"></p>
+</section>
+
+<section id="square">
+<h1>The Sator Square Image</h1>
+<img id="satorImg"
+   src="https://mysteriouswritings.com/wp-content/uploads/2013/01/605px-Sator_Square_at_Opp%C3%A8de1.jpg"
+   width="400">
+<button onclick="changeImage()">Change Image</button>
+<button onclick="loopWords()">Show Pattern</button>
+<div id="loopDisplay"></div>
+</section>
+
+<section id="quiz">
+<h1>Mystery Meaning Quiz</h1>
+<div id="quizContainer">
+  <p id="quizQuestion"></p>
+  <div id="quizOptions"></div>
+  <p id="quizResult"></p>
+  <button id="nextQuestionBtn" style="display:none; margin-top:10px;" onclick="nextQuestion()">Next Question</button>
+</div>
+</section>
+
+<section id="facts">
+<h1>Random Sator Fact</h1>
+<button onclick="showFact()">Show Fact</button>
+<p id="factText"></p>
+<h2>Word Meanings (from Object)</h2>
+<p id="wordInfo"></p>
+<button onclick="showWordInfo()">Show Words Info</button>
+</section>
+
+<section id="form">
+<h1>Feedback Form</h1>
+<form class="feedback-form" onsubmit="thankUser(); return false;">
+  <label for="username">Name</label>
+  <input type="text" id="username" placeholder="Your Name" required>
+  <label for="email">Email</label>
+  <input type="email" id="email" placeholder="Your Email" required>
+  <label for="feedback">Feedback</label>
+  <textarea id="feedback" placeholder="Your Feedback" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+</section>
+</main>
+<script>
+function greetUser() {
+ let name = prompt("Enter your name:");
+ let birthYear = prompt("Enter your birth year:");
+ const currentYear = new Date().getFullYear();
+ let age = currentYear - birthYear;
+ document.getElementById("greetText").innerHTML =
+   `Hello, ${name}! You are approximately ${age} years old — welcome to the mystery of the Sator Square.`;
+}
+
+function checkPalindrome() {
+ let word = document.getElementById("palInput").value.toLowerCase();
+ let reversed = word.split("").reverse().join("");
+ if (word === "") {
+   document.getElementById("palResult").innerHTML = "Please type something first!";
+ } else if (word === reversed) {
+   document.getElementById("palResult").innerHTML = `"${word}" is a palindrome! 🔁`;
+ } else {
+   document.getElementById("palResult").innerHTML = `"${word}" is NOT a palindrome. ❌`;
+ }
+}
+
+function loopWords() {
+ let words = ["SATOR", "AREPO", "TENET", "OPERA", "ROTAS"];
+ let pattern = "";
+ for (let i = 0; i < words.length; i++) {
+   pattern += words[i] + "<br>";
+ }
+ document.getElementById("loopDisplay").innerHTML = pattern;
+}
+
+const quizQuestions = [
+  {
+    question: "What do you think the Sator Square represents?",
+    options: [
+      { text: "Faith", value: "faith" },
+      { text: "Farming", value: "farming" },
+      { text: "Magic", value: "magic" }
+    ],
+    correct: "faith",
+    feedback: {
+      faith: "Correct! Many believe it symbolizes divine protection.",
+      magic: "wrong!",
+      farming: "nah"
+    }
+  },
+  {
+    question: "Which word is at the center of the Sator Square?",
+    options: [
+      { text: "SATOR", value: "sator" },
+      { text: "TENET", value: "tenet" },
+      { text: "ROTAS", value: "rotas" }
+    ],
+    correct: "tenet",
+    feedback: {
+      tenet: "Correct! 'TENET' is the central word, symbolizing balance.",
+      sator: "No, 'SATOR' is the first word, but not the center.",
+      rotas: "No, 'ROTAS' is the last word, not the center."
+    }
+  },
+  {
+    question: "Where was the Sator Square famously found?",
+    options: [
+      { text: "Pompeii", value: "pompeii" },
+      { text: "Athens", value: "athens" },
+      { text: "Rome", value: "rome" }
+    ],
+    correct: "pompeii",
+    feedback: {
+      pompeii: "Correct! It was found in the ruins of Pompeii.",
+      athens: "No, it was not found in Athens.",
+      rome: "No, it was not found in Rome."
+    }
+  },
+  {
+    question: "What language is the Sator Square written in?",
+    options: [
+      { text: "Latin", value: "latin" },
+      { text: "Greek", value: "greek" },
+      { text: "Hebrew", value: "hebrew" }
+    ],
+    correct: "latin",
+    feedback: {
+      latin: "Correct! The Sator Square is in Latin.",
+      greek: "No, it's not Greek.",
+      hebrew: "No, it's not Hebrew."
+    }
+  }
+];
+let currentQuiz = 0;
+function renderQuizQuestion() {
+  const q = quizQuestions[currentQuiz];
+  document.getElementById("quizQuestion").innerHTML = q.question;
+  const optionsDiv = document.getElementById("quizOptions");
+  optionsDiv.innerHTML = "";
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.textContent = opt.text;
+    btn.onclick = function() { checkAnswer(opt.value); };
+    optionsDiv.appendChild(btn);
+  });
+  document.getElementById("quizResult").innerHTML = "";
+  document.getElementById("nextQuestionBtn").style.display = "none";
+}
+function checkAnswer(choice) {
+  const q = quizQuestions[currentQuiz];
+  document.getElementById("quizResult").innerHTML = q.feedback[choice] || "Interesting answer!";
+ 
+  Array.from(document.getElementById("quizOptions").children).forEach(btn => btn.disabled = true);
+  document.getElementById("nextQuestionBtn").style.display = (currentQuiz < quizQuestions.length - 1) ? "inline-block" : "none";
+}
+function nextQuestion() {
+  if (currentQuiz < quizQuestions.length - 1) {
+    currentQuiz++;
+    renderQuizQuestion();
+  }
+}
+
+window.onload = function() {
+  renderQuizQuestion();
+};
+
+function randomFact() {
+ const facts = [
+   "The Sator Square was found in Pompeii’s ruins.",
+   "It reads the same forwards, backwards, up, and down.",
+   "‘TENET’ is the central word, symbolizing balance.",
+   "It might represent early Christian beliefs."
+ ];
+ return facts[Math.floor(Math.random() * facts.length)];
+}
+function showFact() {
+ document.getElementById("factText").innerHTML = randomFact();
+}
+
+const satorWords = {
+ SATOR: "The sower or creator.",
+ AREPO: "A mysterious name, possibly 'plow' or 'tool'.",
+ TENET: "Means 'holds' or 'keeps'.",
+ OPERA: "Means 'works' or 'efforts'.",
+ ROTAS: "Means 'wheels'."
+};
+function showWordInfo() {
+ let text = "";
+ for (let key in satorWords) {
+   text += `<b>${key}</b>: ${satorWords[key]}<br>`;
+ }
+ document.getElementById("wordInfo").innerHTML = text;
+}
+
+const images = [
+ "https://mysteriouswritings.com/wp-content/uploads/2013/01/605px-Sator_Square_at_Opp%C3%A8de1.jpg",
+ "https://hips.hearstapps.com/hmg-prod/images/sator-square-stock-1599042358.jpg"
+];
+let index = 0;
+function changeImage() {
+ index = (index + 1) % images.length;
+ document.getElementById("satorImg").src = images[index];
+}
+
+function thankUser() {
+ let name = document.getElementById("username").value;
+ alert(`Thank you, ${name}! Your feedback about the Sator Square has been recorded.`);
+}
+</script>
+</body>
+</html>
